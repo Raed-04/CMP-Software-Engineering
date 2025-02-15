@@ -17,12 +17,13 @@ exports.deleteEmployee = async (req, res, next) => {
   }});
   let spliced = employee.splice(index, 1);
   console.log("Element removed: ", spliced);
-  res.status(200);
+  res.status(200).json("done");
 };
 
 // TODO
 exports.createEmployee = async (req, res, next) => {
   let Emp = {id: req.body.ID, name: req.body.Name}
   employee.push(Emp);
-  res.status(200);
+  console.log("Element Added: ", Emp);
+  res.status(200).json("done");
 };

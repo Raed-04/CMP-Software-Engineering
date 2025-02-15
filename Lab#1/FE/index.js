@@ -28,14 +28,16 @@ function fetchEmployees() {
         //Deletion event listener
         deleteButton.addEventListener("click", function() { deleteEmployee(item.id) });
       })
+      let button = document.getElementById("sub");
+      button.addEventListener("click", createEmployee); 
     })
     .catch(error => console.error(error))
 }
 
 // TODO
 // add event listener to submit button
-let button = document.getElementById("sub");
-button.addEventListener("click", createEmployee);
+// Added at the bottom of the fetchEmps 
+
 
 // TODO
 // add event listener to delete button
@@ -56,8 +58,9 @@ function createEmployee (){
       "Content-type": "application/json; charset=UTF-8"
     },
     body: JSON.stringify({ID: employeeID, Name: employeeName})
-  });
-  fetchEmployees();
+  })
+  .then(response => response.json)
+  .then(fetchEmployees)
 }
 
 // TODO
@@ -67,8 +70,10 @@ function deleteEmployee (ID){
   // call fetchEmployees
   fetch(`http://localhost:3000/api/v1/employee/${ID}`, {
     method: "DELETE"
-  });
-  fetchEmployees();
+  })
+  //Delay to make sure the page refreshes AFTER delete is done
+  .then(response => response.json)
+  .then(fetchEmployees)
 }
 
 fetchEmployees();
