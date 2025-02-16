@@ -22,8 +22,23 @@ exports.deleteEmployee = async (req, res, next) => {
 
 // TODO
 exports.createEmployee = async (req, res, next) => {
-  let Emp = {id: req.body.ID, name: req.body.Name}
-  employee.push(Emp);
-  console.log("Element Added: ", Emp);
-  res.status(200).json("done");
+  let index = employee.findIndex(function(element) {{
+    if (element.id === req.body.ID)
+    {
+      return true;
+    }
+    return false;
+  }});
+  if (index === -1)
+  {
+    let Emp = {id: req.body.ID, name: req.body.Name}
+    employee.push(Emp);
+    console.log("Element Added: ", Emp);
+    res.status(200).json("done");
+  }
+  else
+  {
+    console.log("ID can't be repeated!")
+    res.status(400).json("failed");
+  }
 };

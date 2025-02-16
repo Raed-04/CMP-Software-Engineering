@@ -52,15 +52,22 @@ function createEmployee (){
   let IDBox = document.getElementById("id");
   let employeeName = nameBox.value;
   let employeeID = IDBox.value;
-  fetch('http://localhost:3000/api/v1/employee', {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    },
-    body: JSON.stringify({ID: employeeID, Name: employeeName})
-  })
-  .then(response => response.json)
-  .then(fetchEmployees)
+  if (employeeName != '' && employeeID != '')
+  {
+    fetch('http://localhost:3000/api/v1/employee', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify({ID: employeeID, Name: employeeName})
+    })
+    .then(response => response.json)
+    .then(fetchEmployees)
+  }
+  else
+  {
+    fetchEmployees();
+  }
 }
 
 // TODO
